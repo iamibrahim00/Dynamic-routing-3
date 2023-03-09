@@ -1,0 +1,21 @@
+<%- include('./includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+   <%- include('./includes/navigation.ejs') %>
+    <main>
+    <form class="product-control"action="/contact" method="POST">
+        <div class="form-control">
+            <label for="title">Contact Us</label><br>
+           <label>Name</label>
+           <input type="text" name="title" id="title">
+           <label>Email-id</label>
+            <input type="email" name="email" id ='email'>
+        </div>
+
+        <button class="btn">Contact</button>
+    </form>
+    </main>
+    <%- include('./includes/end.ejs') %>

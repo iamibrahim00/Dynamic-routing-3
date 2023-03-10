@@ -17,11 +17,15 @@
                 </a>
             </li>
             <li class="main-header__item">
+                <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Product
+                </a>
+            </li>
+            <li class="main-header__item">
                 <a class="<%= path === '/contact' ? 'active' : '' %>" href="/contact">Contact Us</a>
             </li>
         </ul>
     </nav>
-</header>
+</header> 
 
 <nav class="mobile-nav">
         <ul class="mobile-nav__item-list">
@@ -36,6 +40,10 @@
                 </li>
                 <li class="mobile-nav__item">
                     <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product
+                    </a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products
                     </a>
                 </li>
                   <li class="main-header__item">

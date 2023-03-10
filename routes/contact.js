@@ -8,4 +8,4 @@ const postControler =require('../controllers/contact')
 router.get('/contact',getContact.getContactController);
 
 router.post('/contact',postControler.postContactController)
-module.exports = router 
+module.exports = router  

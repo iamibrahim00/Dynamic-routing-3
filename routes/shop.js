@@ -17,7 +17,7 @@ router.get('/cart', shopController.getCart);
 router.post('/cart', shopController.postCart);
 
 router.get('/contact',shopController.getContact);
-
+ 
 router.post('/contact',shopController.postContact)
 
 router.get('/success',shopController.getsuccess)

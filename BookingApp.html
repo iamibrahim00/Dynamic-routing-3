@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Full Stack Booking App</title>
+
+  </head>
+
+  <body>
+    <header>
+      <h1>Booking App</h1>
+    </header>
+
+
+      <form onSubmit = "saveToLocalStorage(event)" >
+        <label> Name</label>
+        <input type ='text' name="name" id ='name' required>
+        <label> Email</label>
+        <input type ='email' name="email" id ='email' required>
+        <label> PhoneNo</label>
+        <input type ='tel' name="phonenumber" id ='phonenumber'>
+        <button> Submit</button>
+
+      </form>
+      <ul id="listOfitems">
+
+      </ul>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="bookingApp.js"></script>
+  </body>
+</html>

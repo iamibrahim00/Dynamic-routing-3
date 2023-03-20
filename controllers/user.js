@@ -1,61 +1,85 @@
+// const { name } = require('ejs');
 const User =  require('../models/User');
 
-exports.postUserDetails = async (req,res,next) =>{
+exports.postUserDetails = async(req,res,next) =>{
+    const name = req.body.name
+    const email = req.body.email
+    const phonenumber = req.body.phonenumber
+    const user = {name,email,phonenumber}
 
-    if(!req.body.phonenumber){
-        throw new Error('Phone Number is mandatory')
-    }
-    try{
-    const name = req.body.name;
-    const email = req.body.email;
-    const phonenumber = req.body.phonenumber;
-    const user = new User(null, name, email, phonenumber);
-    const data = await User.create({name :name,email : email,
-         phonenumber: phonenumber});
-    res.status(201).json({newUserDetails : data})
-    }catch(err){
-        res.status(500).json({
-        error : err
+    if (!user.phonenumber) {
+      return {
+        error: 'Bad Data'
+      }
+    } else {
+      return User.create(user)
+        .then(data1 => {
+            res.status(201).json({newUserDetails : data1})
         })
-        
+        .catch(err => {
+          return 'error: ' + err
+        })
     }
+
 }
 
 
-exports.getUserDetails = async(req,res,next)=>{
-    try{
-        const users = await User.findAll();
-        res.status(200).json({allUsers : users})
-    }catch(err){
-        console.log(err)
-    }
+exports.getUserDetails = (req,res,next)=>{
+    return User.findAll()
+          .then(data1 => {
+            res.status(200).json({data1})
+          })
+          .catch(err => {
+            return 'error: ' + err
+          })
    
 }
 
-exports.deleteUserDetails = async(req,res,next)=>{
-    try{
-        const uId = req.params.id
-        await User.destroy({where : {id : uId}});
-        res.status(200).json({success : true})
-    }catch(err){
-        console.log(err)
+      
+
+exports.updateUser = (req,res,next)=>{
+  const id =req.params.id
+ 
+  const updateName = req.body.name
+  console.log(updateName)
+  const updatedEmail = req.body.email
+  const updatedPhonenumber = req.body.phonenumber
+ User.findByPk(id)
+ .then(user => {
+  let id1 = user.id
+  console.log('Helloooo',user.name)
+  user.update(
+    {
+    
+    name : updateName,
+    email : updatedEmail,
+    phonenumber : updatedPhonenumber
     }
-   
-}
 
-exports.editUserDetails = (req,res,next) =>{
-  
-    const objId = req.body.id;
-    console.log(objId)
-    const updatedName = req.body.name;
-    console.log(updatedName)
-    const updatedEmail= req.body.email;
-    const updatedPhoneNumber = req.body.phonenumber;
-
-    User.findAll({where : {id : objId}}).then(user =>{
-        user.name = updatedName
-      user.email = updatedEmail
-      user.phonenumber= updatedPhoneNumber
-     return user.save()
+  ).then(()=>{
+    console.log('hiii',user.name)
+  })
+ }).catch(err => {
+      return 'error: ' + err
     })
+       
+
+ }
+
+exports.deleteUserDetails = (req,res,next)=>{
+ 
+  return User.destroy  ({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => {
+        res.status(200).json({success : true})
+    })
+    .catch(err => {
+      return 'error: ' + err
+    })  
+  
 }
+
+

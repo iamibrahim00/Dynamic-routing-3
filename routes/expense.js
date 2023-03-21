@@ -10,8 +10,8 @@ router.post('/expense/add-expense',ExprenseController.postExpense)
 
 router.get('/expense/get-expense',ExprenseController.getExpense)
 
-router.delete('/expense/delete-expense/:id',ExprenseController.deleteExpense)
+router.patch('/expense/edit-expense/:id',ExprenseController.editExpense)
 
-router.patch('/expense/edit-expense',ExprenseController.editExpense)
+router.delete('/expense/delete-expense/:id',ExprenseController.deleteExpense)
 
 module.exports = router

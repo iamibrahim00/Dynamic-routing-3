@@ -1,8 +1,6 @@
 const Expense = require('../models/Expense')
 
 exports.postExpense = async (req,res,next) =>{
-
-
     try{
     const expense = req.body.expense;
     const description = req.body.description;
@@ -28,6 +26,33 @@ exports.getExpense = async(req,res,next)=>{
    
 }
 
+exports.editExpense = (req,res,next) =>{
+    const id =req.params.id
+    const updateExpense = req.body.expense
+    console.log(updateExpense)
+    const updatedDescription= req.body.description
+    const updatedCategory = req.body.category
+   Expense.findByPk(id)
+   .then(expense => {
+    console.log('Helloooo',expense.expense)
+    expense.update(
+      {
+      
+      expense : updateExpense,
+      description : updatedDescription,
+      category : updatedCategory
+      }
+  
+    ).then((expense)=>{
+      res.status(200).json({expense1 : expense})
+      console.log('hiii',expense.expense)
+    })
+   }).catch(err => {
+        return 'error: ' + err
+      })
+         
+}
+
 exports.deleteExpense = async(req,res,next)=>{
     try{
         const expenseId= req.params.id
@@ -37,30 +62,4 @@ exports.deleteExpense = async(req,res,next)=>{
         console.log(err)
     }
    
-}
-
-exports.editExpense = (req,res,next) =>{
-
-        const expense = req.params.id
-        console.log(expense)
-        const updatedExpense = req.body.expense;
-        console.log(updatedExpense)
-        const updatedDescription = req.body.description;
-        const updatedCategory = req.body.category;
-  Expense.destroy({where : {id : expense}})
-    .then((expense)=>{
-        expense.update( {
-           expense : updatedExpense,
-            description : updatedDescription,
-            category : updatedCategory})
-      
-         return expense.save()
-
-    })
-      
-    .catch(err =>{
-        console.log(err)
-    }
-    )
-    
 }

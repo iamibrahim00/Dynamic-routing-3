@@ -11,6 +11,6 @@ router.get('/user/get-user',userController.getUserDetails)
 
 router.delete('/user/delete-user/:id',userController.deleteUserDetails)
 
-router.put('/user/edit-user/:id',userController.updateUser)
+router.patch('/user/edit-user/:id',userController.updateUser)
 
 module.exports = router  

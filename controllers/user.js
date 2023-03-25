@@ -1,25 +1,27 @@
 // const { name } = require('ejs');
-const User =  require('../models/User');
+const User =  require('../models/user');
 
 exports.postUserDetails = async(req,res,next) =>{
     const name = req.body.name
     const email = req.body.email
     const phonenumber = req.body.phonenumber
     const user = {name,email,phonenumber}
-
-    if (!user.phonenumber) {
-      return {
-        error: 'Bad Data'
+    if(user){
+      if (!user.phonenumber) {
+        return {
+          error: 'Bad Data'
+        }
+      } else {
+        return User.create(user)
+          .then(data1 => {
+              res.status(200).json({newUserDetails : data1})
+          })
+          .catch(err => {
+            return 'error: ' + err
+          })
       }
-    } else {
-      return User.create(user)
-        .then(data1 => {
-            res.status(201).json({newUserDetails : data1})
-        })
-        .catch(err => {
-          return 'error: ' + err
-        })
     }
+    
 
 }
 
@@ -46,7 +48,6 @@ exports.updateUser = (req,res,next)=>{
   const updatedPhonenumber = req.body.phonenumber
  User.findByPk(id)
  .then(user => {
-  let id1 = user.id
   console.log('Helloooo',user.name)
   user.update(
     {
@@ -56,7 +57,13 @@ exports.updateUser = (req,res,next)=>{
     phonenumber : updatedPhonenumber
     }
 
-  ).then(()=>{
+  ).then((user)=>{
+    // User.destroy({
+    //   where: {
+    //     id:user.id+1
+    //   }
+    // })
+    res.status(200).json({user1 : user})
     console.log('hiii',user.name)
   })
  }).catch(err => {
